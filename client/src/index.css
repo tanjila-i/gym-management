@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@theme {
+  --color-background: #0c0c0c;
+  --color--box: #171717;
+}
+
+body {
+  background: var(--color-background);
+}
+
+.box {
+  background: var(--color--box);
+}
+
+.input {
+  background: var(--color-background);
+}

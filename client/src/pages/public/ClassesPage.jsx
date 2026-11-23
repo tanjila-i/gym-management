@@ -1,0 +1,126 @@
+import React from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+export const CLASSES_LIST = [
+  {
+    id: "c-1",
+    title: "HIIT & Conditioning",
+    trainer: "Jordan Vance",
+    dayTime: "Mon / Wed · 07:00 AM",
+    level: "Intermediate",
+    spotsLeft: 5,
+    capacity: 20,
+  },
+  {
+    id: "c-2",
+    title: "Foundations Strength",
+    trainer: "Jordan Vance",
+    dayTime: "Tue / Thu · 06:00 PM",
+    level: "Beginner",
+    spotsLeft: 8,
+    capacity: 16,
+  },
+  {
+    id: "c-3",
+    title: "Mobility & Core",
+    trainer: "Jordan Vance",
+    dayTime: "Sat · 09:30 AM",
+    level: "All Levels",
+    spotsLeft: 0,
+    capacity: 18,
+  },
+];
+const ClassesPage = () => {
+  const [enquirySent, setEnquirySent] = useState(false);
+  return (
+    <div className="text-white">
+      {" "}
+      <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 lg:grid-cols-2">
+        <div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">Upcoming Classes</h2>
+            <Link
+              to="/classes"
+              className="text-sm font-medium text-amber-400 hover:underline"
+            >
+              Full Timetable →
+            </Link>
+          </div>
+          <div className="mt-5 space-y-3">
+            {CLASSES_LIST.map((cls) => (
+              <div
+                key={cls.id}
+                className="flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900 p-4"
+              >
+                <div>
+                  <p className="font-semibold">{cls.title}</p>
+                  <p className="text-xs text-neutral-400">
+                    {cls.dayTime} · Coach {cls.trainer} ({cls.level})
+                  </p>
+                </div>
+                <span className="text-xs font-medium text-neutral-300">
+                  {cls.spotsLeft > 0
+                    ? `${cls.spotsLeft} spots left`
+                    : "Waitlist"}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+          <h2 className="text-xl font-bold">Visit or Ask a Question</h2>
+          <p className="mt-1 text-sm text-neutral-400">
+            120 Fitness Avenue · Open Mon–Sun, 05:30 AM – 10:00 PM
+          </p>
+
+          {enquirySent ? (
+            <div className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-300">
+              Enquiry received. Our front-desk staff will respond within one
+              business day.
+            </div>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setEnquirySent(true);
+              }}
+              className="mt-4 space-y-3 text-sm"
+            >
+              <input
+                type="text"
+                required
+                placeholder="Your Name"
+                aria-label="Your Name"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 text-white"
+              />
+              <input
+                type="email"
+                required
+                placeholder="Email or Phone"
+                aria-label="Email or Phone"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 text-white"
+              />
+              <textarea
+                rows={3}
+                required
+                placeholder="How can we help you?"
+                aria-label="Message"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 text-white"
+              />
+              <button
+                type="submit"
+                className="rounded-lg bg-amber-400 px-5 py-2.5 font-semibold text-neutral-950 hover:bg-amber-300"
+              >
+                Send Enquiry
+              </button>
+            </form>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default ClassesPage;
